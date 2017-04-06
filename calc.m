@@ -1,29 +1,4 @@
 function varargout = calc(varargin)
-% CALC MATLAB code for calc.fig
-%      CALC, by itself, creates a new CALC or raises the existing
-%      singleton*.
-%
-%      H = CALC returns the handle to a new CALC or the handle to
-%      the existing singleton*.
-%
-%      CALC('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in CALC.M with the given input arguments.
-%
-%      CALC('Property','Value',...) creates a new CALC or raises the
-%      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before calc_OpeningFcn gets called.  An
-%      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to calc_OpeningFcn via varargin.
-%
-%      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
-%      instance to run (singleton)".
-%
-% See also: GUIDE, GUIDATA, GUIHANDLES
-
-% Edit the above text to modify the response to help calc
-
-% Last Modified by GUIDE v2.5 06-Apr-2017 13:07:19
-
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
@@ -58,110 +33,101 @@ handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
 
-% UIWAIT makes calc wait for user response (see UIRESUME)
-% uiwait(handles.figure1);
-
-
 % --- Outputs from this function are returned to the command line.
 function varargout = calc_OutputFcn(hObject, eventdata, handles) 
-% varargout  cell array for returning output args (see VARARGOUT);
-% hObject    handle to figure
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
+  % varargout  cell array for returning output args (see VARARGOUT);
+  % hObject    handle to figure
+  % eventdata  reserved - to be defined in a future version of MATLAB
+  % handles    structure with handles and user data (see GUIDATA)
 
-% Get default command line output from handles structure
-varargout{1} = handles.output;
+  % Get default command line output from handles structure
+  varargout{1} = handles.output;
 
-
+% set(handles.Tag, 'Type', data);
+% get(handles.Tag, 'Type');
 
 function numReg1_Callback(hObject, eventdata, handles)
-% hObject    handle to numReg1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of numReg1 as text
-%        str2double(get(hObject,'String')) returns contents of numReg1 as a double
-
+  size = get(handles.regSize,'value');
+  binary = reshape(decimalToBinaryVector(str2num(get(handles.numReg1,'string')), 4,'MSBFirst').',1,[])
+  set(handles.reg1, 'Data', binary);  
 
 % --- Executes during object creation, after setting all properties.
 function numReg1_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to numReg1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
+  % hObject    handle to numReg1 (see GCBO)
+  % eventdata  reserved - to be defined in a future version of MATLAB
+  % handles    empty - handles not created until after all CreateFcns called
 
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
+  % Hint: edit controls usually have a white background on Windows.
+  %       See ISPC and COMPUTER.
+  if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+      set(hObject,'BackgroundColor','white');
+  end
 
 % --- Executes on button press in addButton.
 function addButton_Callback(hObject, eventdata, handles)
-% hObject    handle to addButton (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of addButton
-
 
 % --- Executes on button press in negButton.
 function negButton_Callback(hObject, eventdata, handles)
-% hObject    handle to negButton (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
 
-% Hint: get(hObject,'Value') returns toggle state of negButton
-
-
-% --- Executes on selection change in listbox1.
-function listbox1_Callback(hObject, eventdata, handles)
-% hObject    handle to listbox1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: contents = cellstr(get(hObject,'String')) returns listbox1 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from listbox1
-
+% --- Executes on selection change in regSize.
+function regSize_Callback(hObject, eventdata, handles)
 
 % --- Executes during object creation, after setting all properties.
-function listbox1_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to listbox1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
+function regSize_CreateFcn(hObject, eventdata, handles)
+  % hObject    handle to regSize (see GCBO)
+  % eventdata  reserved - to be defined in a future version of MATLAB
+  % handles    empty - handles not created until after all CreateFcns called
 
-% Hint: listbox controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
+  % Hint: listbox controls usually have a white background on Windows.
+  %       See ISPC and COMPUTER.
+  if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+      set(hObject,'BackgroundColor','white');
+  end
 
 function numReg2_Callback(hObject, eventdata, handles)
-% hObject    handle to numReg2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of numReg2 as text
-%        str2double(get(hObject,'String')) returns contents of numReg2 as a double
-
 
 % --- Executes during object creation, after setting all properties.
 function numReg2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to numReg2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
+  % hObject    handle to numReg2 (see GCBO)
+  % eventdata  reserved - to be defined in a future version of MATLAB
+  % handles    empty - handles not created until after all CreateFcns called
 
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
+  % Hint: edit controls usually have a white background on Windows.
+  %       See ISPC and COMPUTER.
+  if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+      set(hObject,'BackgroundColor','white');
+  end
 
 % --- Executes on button press in equalButton.
 function equalButton_Callback(hObject, eventdata, handles)
-% hObject    handle to equalButton (see GCBO)
+
+
+% --- Executes during object deletion, before destroying properties.
+function reg1_DeleteFcn(hObject, eventdata, handles)
+% hObject    handle to reg1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes during object creation, after setting all properties.
+function reg1_CreateFcn(hObject, eventdata, handles)
+    set(hObject,'Data',cell(0));
+% hObject    handle to reg1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+
+% --- Executes during object creation, after setting all properties.
+function reg2_CreateFcn(hObject, eventdata, handles)
+    set(hObject,'Data',cell(0));
+% hObject    handle to reg2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+
+% --- Executes during object creation, after setting all properties.
+function reg3_CreateFcn(hObject, eventdata, handles)
+    set(hObject,'Data',cell(0));
+% hObject    handle to reg3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
